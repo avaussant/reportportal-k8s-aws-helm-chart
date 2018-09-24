@@ -2,13 +2,18 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: reportportal-mongodb
-  labels: {{ include "labels" . | indent 4 }}
+   name: reportportal-mongodb
+   namespace: reportportal
+   labels: {{ include "labels" . | indent 4 }}
+   purpose: reportportal-mongodb
+   type: amazonEBS
 spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: {{ .Values.persistence.mongodb.spec.capacity.storage }}
-  volumeName: reportportal-mongodb
+ accessModes:
+   - ReadWriteOnce
+ resources:
+   requests:
+     storage: 75Gi
+ selector:
+ matchLabels:
+ purpose: reportportal-mongodb
 {{- end -}}

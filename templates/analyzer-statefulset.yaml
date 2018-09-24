@@ -2,6 +2,7 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: analyzer
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
 spec:
   replicas: 1
@@ -16,7 +17,8 @@ spec:
     spec:
       containers:
 #      - image: "{{ .Values.registry }}/reportportal/service-analyzer:4.1.0"
-      - image: "{{ .Values.registry }}reportportal/service-analyzer:4.1.0"
+#      - image: "{{ .Values.registry }}reportportal/service-analyzer:4.1.0"
+      - image: "{{ .Values.registry }}reportportal/service-analyzer:4.2.0"
         name: analyzer
         ports:
         - containerPort: 8080

@@ -2,13 +2,18 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: reportportal-elasticsearch
+  name: reportportal-elasticsearch 
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
+  purpose: reportportal-elasticsearch 
+  type: amazonEBS
 spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: {{ .Values.persistence.elasticsearch.spec.capacity.storage }}
-  volumeName: reportportal-elasticsearch
+ accessModes:
+   - ReadWriteOnce
+ resources:
+   requests:
+      storage: 80Gi
+ selector:
+ matchLabels:
+ purpose: reportportal-elasticsearch 
 {{- end -}}

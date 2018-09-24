@@ -2,6 +2,7 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: api
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
 spec:
   replicas: 1
@@ -21,7 +22,8 @@ spec:
         - name: "RP_PROFILES"
           value: "docker"
         #image: "{{ .Values.registry }}/reportportal/service-api:4.1.0"
-        image: "{{ .Values.registry }}reportportal/service-api:4.1.0"
+        #image: "{{ .Values.registry }}reportportal/service-api:4.1.0"
+        image: "{{ .Values.registry }}reportportal/service-api:4.2.0"
         name: api
         ports:
         - containerPort: 8080

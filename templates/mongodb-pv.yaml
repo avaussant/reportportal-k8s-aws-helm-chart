@@ -3,10 +3,17 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: reportportal-mongodb
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
+  type: amazonEBS
+  purpose: reportportal-mongodb
 spec:
-  claimRef:
-    namespace: default
-    name: reportportal-mongodb
-{{ toYaml .Values.persistence.mongodb.spec | indent 2 }}
+ capacity:
+   storage: 75Gi
+ accessModes:
+   - ReadWriteOnce
+ awsElasticBlockStore:
+    volumeID: vol-00000000000000
+    fsType: ext4
+ storageClassName: gp2
 {{- end -}}

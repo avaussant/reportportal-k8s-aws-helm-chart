@@ -2,6 +2,7 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: index
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
 spec:
   replicas: 1
@@ -21,7 +22,8 @@ spec:
         - name: RP_SERVER_PORT
           value: "8090"
 #        image: "{{ .Values.registry }}/reportportal/service-index:4.0.0"
-        image: "{{ .Values.registry }}reportportal/service-index:4.0.0"
+#        image: "{{ .Values.registry }}reportportal/service-index:4.0.0"
+        image: "{{ .Values.registry }}reportportal/service-index:4.2.0"
         name: index
         ports:
         - containerPort: 8090

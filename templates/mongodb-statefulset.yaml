@@ -2,6 +2,7 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: mongodb
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
 spec:
   replicas: 1

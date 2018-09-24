@@ -1,18 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: gateway
+  name: gateway 
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
+   
 spec:
   ports:
+  - name: "9999"
+    port: 9999 
+    protocol: TCP
+    targetPort: 9999
   - name: "9998"
     port: 9998
     protocol: TCP
     targetPort: 9998
-  - name: "9999"
-    port: 9999
-    protocol: TCP
-    targetPort: 9999
   selector:
     component: reportportal-gateway
-  type: ClusterIP
+  type: LoadBalancer
+

@@ -3,10 +3,17 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: reportportal-elasticsearch
+  namespace: reportportal
   labels: {{ include "labels" . | indent 4 }}
+  type: amazonEBS
+  purpose: reportportal-elasticsearch
 spec:
-  claimRef:
-    namespace: default
-    name: reportportal-elasticsearch
-{{ toYaml .Values.persistence.elasticsearch.spec | indent 2 }}
+ capacity:
+   storage: 80Gi
+ accessModes:
+   - ReadWriteOnce
+ awsElasticBlockStore:
+   volumeID: vol-000000000
+   fsType: ext4
+ storageClassName: gp2
 {{- end -}}
